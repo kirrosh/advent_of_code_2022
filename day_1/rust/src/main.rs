@@ -27,3 +27,25 @@ fn main() {
     println!("Top 1 {:?}", calculate_top(sums.clone(), 1));
     println!("Top 3 {:?}", calculate_top(sums, 3));
 }
+
+#[cfg(test)]
+mod tests {
+
+    #[test]
+    fn top_1() {
+        let input = std::fs::read_to_string("../input.txt").unwrap();
+        let lines = input.lines();
+        let sums = crate::collect_sums(lines);
+        let res = crate::calculate_top(sums, 1);
+        assert_eq!(res, 70720);
+    }
+
+    #[test]
+    fn top_3() {
+        let input = std::fs::read_to_string("../input.txt").unwrap();
+        let lines = input.lines();
+        let sums = crate::collect_sums(lines);
+        let res = crate::calculate_top(sums, 3);
+        assert_eq!(res, 207148);
+    }
+}
