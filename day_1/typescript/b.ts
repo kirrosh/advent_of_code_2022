@@ -1,4 +1,4 @@
-const text = await Deno.readTextFile("./input.txt");
+const text = await Deno.readTextFile("../input.txt");
 
 const findTopThree = (map: Map<number, number>) => {
   return [...map.entries()]
