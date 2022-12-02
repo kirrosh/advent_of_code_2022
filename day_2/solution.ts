@@ -91,8 +91,6 @@ Deno.test("Test", () => {
 Deno.test("Input", async () => {
   const text = await Deno.readTextFile("./input.txt");
   const parsed = text.split("\r\n").map((line) => line.split(" "));
-  console.log(parsed);
   const res = solution(parsed as [Default, Cusom][]);
-  console.log(res);
-  assertEquals(res, 15775);
+  assertEquals(res, 13268);
 });
