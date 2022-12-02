@@ -73,7 +73,7 @@ Deno.test("Part 1", () => {
 });
 
 Deno.test("Part 1 Input", async () => {
-  const text = await Deno.readTextFile("./input.txt");
+  const text = await Deno.readTextFile("../input.txt");
   const parsed = text.split("\r\n").map((line) => line.split(" "));
   const res = solution(parsed as [Default, Cusom][]);
   assertEquals(res, 13268);
@@ -89,7 +89,7 @@ Deno.test("Part 2", () => {
 });
 
 Deno.test("Part 2 Input", async () => {
-  const text = await Deno.readTextFile("./input.txt");
+  const text = await Deno.readTextFile("../input.txt");
   const parsed = text.split("\r\n").map((line) => line.split(" "));
   const res = solutionPart_2(parsed as [Default, Cusom][]);
   assertEquals(res, 15508);
