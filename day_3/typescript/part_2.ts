@@ -1,18 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.166.0/testing/asserts.ts";
 
-const splitToTwo = (input: string) => {
-  return [input.slice(0, input.length / 2), input.slice(input.length / 2)] as [
-    string,
-    string
-  ];
-};
-
-const findBoth = ([a, b, c]: [string, string, string]) => {
-  const aSet = new Set(a.split(""));
-  const bSet = new Set(b.split(""));
-  const cSet = new Set(c.split(""));
-  const both = new Set([...aSet].filter((x) => bSet.has(x) && cSet.has(x)));
-  return [...both][0] || "";
+const findCharInAll = (arr: string[]) => {
+  const charSet = new Set(arr[0].split(""));
+  const res = [...charSet].filter((x) => arr.every((y) => y.includes(x)));
+  return res[0] || "";
 };
 
 const getCharValue = (char: string) => {
@@ -27,22 +18,17 @@ const getCharValue = (char: string) => {
 
 const sum = (a: number, b: number) => a + b;
 
-const groupByThree = (res: string[][]) => (arr: string[], input: string) => {
-  if (arr.length === 2) {
-    res.push([...arr, input]);
+const splitArrayToChunks = (arr: string[], chunkSize: number) => {
+  const res = [];
+  for (let i = 0, len = arr.length; i < len; i += chunkSize) {
+    res.push(arr.slice(i, i + chunkSize));
   }
-  if (arr.length === 3) {
-    return [input];
-  }
-  return [...arr, input];
+  return res;
 };
 
 const solution = (input: string[]): number => {
-  const groups: string[][] = [];
-  input.reduce(groupByThree(groups), []);
-
-  return (groups as [string, string, string][])
-    .map(findBoth)
+  return splitArrayToChunks(input, 3)
+    .map(findCharInAll)
     .map(getCharValue)
     .reduce(sum, 0);
 };
@@ -61,9 +47,9 @@ Deno.test("Part 2", () => {
   assertEquals(res, 70);
 });
 
-Deno.test("Part 1 Input", async () => {
+Deno.test("Part 2 Input", async () => {
   const input = await Deno.readTextFile("../input.txt");
   const data = input.split("\r\n");
   const res = solution(data);
-  assertEquals(res, 7597);
+  assertEquals(res, 2607);
 });
